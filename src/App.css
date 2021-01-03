@@ -2,10 +2,6 @@
     margin: 0;
 }
 
-/* .app{
-    background-color: #000;
-} */
-
 .app__header{
     margin-left: 40%;
 }
@@ -15,3 +11,9 @@
     color: #fff;
     padding: 5px;
 }
+
+.leaflet-div-icon {
+    background: none;
+    border: none;
+}
+

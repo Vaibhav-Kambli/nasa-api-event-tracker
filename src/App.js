@@ -1,16 +1,31 @@
-import Map from './components/Map.js'
-import './App.css'
+import { useState, useEffect } from "react";
+import Map from "./components/Map.js";
+import Loader from "./components/Loader.js";
+import Header from "./components/Header.js";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="app">
-    {/* <div className="app__header">
-     <h1>Nasa Event Tracker : Volcanoes</h1>
+  const [eventData, setEventData] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    </div> */}
-     <Map/>
-    </div>
-  );
+  useEffect(() =>{
+    const fetchEvents = async () => {
+      setLoading(true)
+      const res = await fetch('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events')
+      const {events} = await res.json()
+      setEventData(events)
+      setLoading(false)
+    }
+
+    fetchEvents()
+  }, [])
+
+  return (
+		<div className="app">
+    <Header/>
+			{!loading ? <Map eventData={eventData}/>: <Loader/>}
+		</div>
+	);
 }
 
 export default App;
